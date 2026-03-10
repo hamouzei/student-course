@@ -1,4 +1,6 @@
 package com.studentcourse.student_course_system.controller;
+import com.studentcourse.student_course_system.dto.StudentRequestDTO;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +20,13 @@ public class StudentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Student createStudent(@RequestBody Student student) {
+    public Student createStudent(@Valid @RequestBody StudentRequestDTO dto) {
+        Student student = new Student();
+        student.setFirstName(dto.getFirstName());
+        student.setLastName(dto.getLastName());
+        student.setEmail(dto.getEmail());
+        student.setAge(dto.getAge());
+
         return studentService.createStudent(student);
     }
 
